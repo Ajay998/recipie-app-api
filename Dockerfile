@@ -6,11 +6,14 @@ ENV PYTHONUNBUFFERED=1
 
 # Copy requirements first (for better layer caching)
 COPY ./requirements.txt /tmp/requirements.txt
+COPY ./requirements-dev.txt /tmp/requirements-dev.txt
 
+ARG DEV=false
 # Set up a virtual environment and install dependencies
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install --default-timeout=100 --retries=5 -r /tmp/requirements.txt && \
+    if [ "$DEV" = "true" ] ; then /py/bin/pip install --default-timeout=100 --retries=5 -r /tmp/requirements-dev.txt ; fi && \
     rm -rf /tmp && \
     adduser \
         --disabled-password \

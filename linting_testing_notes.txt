@@ -1,0 +1,10 @@
+Linting:
+To check code formatting and style, highlight errors and typos and formatting issues, we have set up linting using flake8.
+Linting has been set up using flake8. To run the linter, use the following command:
+flake8 .
+docker-compose run --rm app sh -c "flake8"
+
+Testing:
+Django test suite
+We have set up testing using Django's built-in test framework. To run the tests, use the following command:
+docker-compose run --rm app sh -c "python manage.py test"

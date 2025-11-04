@@ -26,6 +26,9 @@ services: : This block defines the services that make up the application.
         build: context: . : This line specifies the build context for the app service, which is the current directory.
         ports: : This block maps ports from the host to the container.
             - "8000:8000" : This line maps port 8000 on the host to port 8000 in the container.
-        volumes: : This block defines volume mappings.
+        volumes: : This block defines volume mappings.  (if created in local it will reflect in container vice versa)
             - .:/app : This line mounts the current directory on the host to the /app directory in the container, allowing for live code updates.
         command: python manage.py runserver
+
+docker-compose run --rm app sh -c "django-admin startproject app .": This command runs a one-time command in the app service to start a new Django project named myproject in the current directory. The --rm flag ensures that the container is removed after the command is executed.
+docker-compose up : (basically starts the app) This command starts the services defined in the docker-compose.yml file, building images if necessary and creating containers. (basically starts the app)
