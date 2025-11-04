@@ -1,0 +1,31 @@
+Dockerfile Content Explanation:
+FROM python3.9-alpine3.13: This line specifies the base image for the Docker container, which is Python 3.9 running on Alpine Linux 3.13.
+LABEL maintainer="ajaydev1998": This line adds metadata to the image, specifying the maintainer's contact information.
+ENV PYTHONUNBFFERED 1: This line sets an environment variable to ensure that Python output is sent straight to the terminal without being buffered, which is useful for logging purposes.
+COPY  ./requirements.txt /app/requirements.txt.: This line copies the requirements.txt file from the local machine to the /app directory in the Docker container.
+COPY ./app /app: This line copies the entire app directory from the local machine to the /app directory in the Docker container.
+WORKDIR /app: This line sets the working directory for any subsequent commands to /app.
+EXPOSE 8000: This line informs Docker that the container will listen on port 8000 at runtime.
+RUN python -m venv /py && \: This line creates a virtual environment in the /py directory.
+    /py/bin/pip install --upgrade pip && \: This line upgrades pip in the virtual environment.
+    /py/bin/pip install -r /tmp/requirements.txt: This line installs the Python packages listed in requirements.txt using pip from the virtual environment.
+    rm -rf /tmp : This line removes the /tmp directory to clean up unnecessary files.
+
+adduser \
+        --disabled-password \
+        --no-create-home \ 
+        django-user: This block adds a new user named django-user without a password and without creating a home directory.    
+
+ENV PATH="/py/bin:$PATH" : This line adds the virtual environment's bin directory to the PATH environment variable, allowing the use of installed packages directly.
+USER django-user: This line switches the user to django-user for running subsequent commands, enhancing security
+
+Docker Compose file:
+version: '3.9' : This line specifies the version of the Docker Compose file format being used.
+services: : This block defines the services that make up the application.
+    app: : This block defines the app service.
+        build: context: . : This line specifies the build context for the app service, which is the current directory.
+        ports: : This block maps ports from the host to the container.
+            - "8000:8000" : This line maps port 8000 on the host to port 8000 in the container.
+        volumes: : This block defines volume mappings.
+            - .:/app : This line mounts the current directory on the host to the /app directory in the container, allowing for live code updates.
+        command: python manage.py runserver
