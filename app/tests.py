@@ -12,3 +12,6 @@ class CalcTests(SimpleTestCase):
 
     def test_fail_add_numbers(self):
         self.assertNotEqual(add(5, 5), 11)
+
+    def test_add_strings(self):
+        self.assertEqual(add('hello ', 'world'), 'hello world')
