@@ -22,6 +22,7 @@ RUN python -m venv /py && \
 
 # Copy application code
 COPY ./app /app
+COPY ./manage.py /app/manage.py
 
 # Set work directory
 WORKDIR /app
