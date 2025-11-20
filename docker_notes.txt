@@ -19,6 +19,7 @@ adduser \
 ENV PATH="/py/bin:$PATH" : This line adds the virtual environment's bin directory to the PATH environment variable, allowing the use of installed packages directly.
 USER django-user: This line switches the user to django-user for running subsequent commands, enhancing security
 
+sudo apt-get update && sudo apt-get install docker-compose-plugin -y: This command updates the package lists and installs the Docker Compose plugin on a Debian-based system.
 Docker Compose file:
 version: '3.9' : This line specifies the version of the Docker Compose file format being used.
 services: : This block defines the services that make up the application.

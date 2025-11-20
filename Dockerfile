@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.13-alpine3.20
 LABEL maintainer="ajaydev1998"
 
 # Prevent Python from buffering stdout/stderr

@@ -6,5 +6,6 @@ exclude =
     venv,
     env,
     .env,
-    manage.py
-    settings.py
+    manage.py,
+    settings.py,
+    app/settings.py
